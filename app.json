@@ -2,6 +2,7 @@
   "expo": {
     "name": "emsapp",
     "slug": "emsapp",
+    "owner": "fedna-research",
     "version": "1.0.0",
     "scheme": "emsapp",
     "orientation": "portrait",
