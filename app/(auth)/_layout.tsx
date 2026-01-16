@@ -1,8 +1,8 @@
-import { Redirect } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
 import { View, ActivityIndicator } from 'react-native';
 
-export default function Index() {
+export default function AuthLayout() {
   const { session, loading } = useAuth();
 
   if (loading) {
@@ -17,5 +17,15 @@ export default function Index() {
     return <Redirect href="/(protected)" />;
   }
 
-  return <Redirect href="/(auth)/login" />;
+  return (
+    <Stack>
+      <Stack.Screen
+        name="login"
+        options={{
+          title: 'Login',
+          headerShown: false,
+        }}
+      />
+    </Stack>
+  );
 }

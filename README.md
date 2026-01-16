@@ -7,22 +7,91 @@ A production-ready Expo (React Native) application built with TypeScript and Exp
 - **Expo SDK 52** - React Native framework
 - **TypeScript** - Type-safe development
 - **Expo Router 4** - File-based navigation
+- **Supabase** - Authentication and backend
 - **EAS Build** - Cloud-based build service
 
 ## Project Structure
 
 ```
 emsapp/
-├── app/                    # Expo Router pages
-│   ├── _layout.tsx        # Root layout
-│   └── index.tsx          # Home screen
-├── assets/                # Image assets
-├── app.json              # Expo configuration
-├── eas.json              # EAS Build configuration
-├── package.json          # Dependencies
-├── tsconfig.json         # TypeScript configuration
-└── babel.config.js       # Babel configuration
+├── app/                        # Expo Router pages
+│   ├── (auth)/                # Unauthenticated routes
+│   │   ├── _layout.tsx       # Auth layout with redirects
+│   │   └── login.tsx         # Login screen
+│   ├── (protected)/          # Protected routes
+│   │   ├── _layout.tsx       # Protected layout with auth guards
+│   │   └── index.tsx         # Home screen (protected)
+│   ├── _layout.tsx           # Root layout
+│   └── index.tsx             # Entry point with auth redirect
+├── contexts/                 # React contexts
+│   └── AuthContext.tsx      # Authentication context
+├── lib/                      # Utilities
+│   └── supabase.ts          # Supabase client configuration
+├── assets/                   # Image assets
+├── .env.example             # Environment variables template
+├── app.json                 # Expo configuration
+├── eas.json                 # EAS Build configuration
+├── package.json             # Dependencies
+├── tsconfig.json            # TypeScript configuration
+└── babel.config.js          # Babel configuration
 ```
+
+## Supabase Setup
+
+This app uses Supabase for authentication. Follow these steps to configure it:
+
+### 1. Create a Supabase Project
+
+1. Go to https://app.supabase.com
+2. Create a new project
+3. Wait for the project to finish setting up
+
+### 2. Configure Environment Variables
+
+The app requires two environment variables from your Supabase project:
+
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Get your Supabase credentials:
+   - Go to your Supabase project settings
+   - Navigate to **Settings > API**
+   - Copy the **Project URL** (EXPO_PUBLIC_SUPABASE_URL)
+   - Copy the **anon/public key** (EXPO_PUBLIC_SUPABASE_ANON_KEY)
+
+3. Update your `.env` file with these values
+
+### 3. Configure Environment Variables for EAS Build
+
+For cloud builds with EAS, add your environment variables to EAS:
+
+```bash
+eas secret:create --scope project --name EXPO_PUBLIC_SUPABASE_URL --value "your-project-url"
+eas secret:create --scope project --name EXPO_PUBLIC_SUPABASE_ANON_KEY --value "your-anon-key"
+```
+
+Or add them through the Expo dashboard:
+1. Go to https://expo.dev
+2. Select your project
+3. Navigate to **Secrets**
+4. Add both environment variables
+
+### 4. Enable Email Authentication in Supabase
+
+1. In your Supabase project, go to **Authentication > Providers**
+2. Enable **Email** provider
+3. Configure email templates if needed (optional)
+
+### Authentication Features
+
+The app supports two authentication methods:
+
+- **Email + Password**: Traditional sign up and sign in
+- **Magic Link (OTP)**: Passwordless authentication via email
+
+Users can toggle between these methods on the login screen.
 
 ## Getting Started with EAS Cloud Builds
 
@@ -128,6 +197,8 @@ Expo will use default placeholders if these are not provided.
 - [Expo Router Documentation](https://docs.expo.dev/router/introduction)
 - [EAS Build Documentation](https://docs.expo.dev/build/introduction)
 - [EAS Submit Documentation](https://docs.expo.dev/submit/introduction)
+- [Supabase Documentation](https://supabase.com/docs)
+- [Supabase Auth Documentation](https://supabase.com/docs/guides/auth)
 
 ## License
 
