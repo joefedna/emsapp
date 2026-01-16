@@ -1,7 +1,8 @@
-import { Stack } from 'expo-router';
+import { Slot } from 'expo-router';
 import { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -11,17 +12,9 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <>
+    <AuthProvider>
       <StatusBar style="auto" />
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{
-            title: 'Home',
-            headerShown: true
-          }}
-        />
-      </Stack>
-    </>
+      <Slot />
+    </AuthProvider>
   );
 }
