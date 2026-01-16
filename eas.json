@@ -25,8 +25,12 @@
     },
     "production": {
       "autoIncrement": true,
+      "android": {
+        "credentialsSource": "remote"
+      },
       "ios": {
-        "simulator": false
+        "simulator": false,
+        "credentialsSource": "remote"
       }
     }
   },
