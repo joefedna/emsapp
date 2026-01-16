@@ -1,0 +1,51 @@
+module.exports = {
+  expo: {
+    name: 'emsapp',
+    slug: 'english-medium-ai',
+    owner: 'fedna-research',
+    version: '1.0.0',
+    scheme: 'emsapp',
+    orientation: 'portrait',
+    icon: './assets/icon.png',
+    userInterfaceStyle: 'automatic',
+    splash: {
+      image: './assets/splash.png',
+      resizeMode: 'contain',
+      backgroundColor: '#ffffff',
+    },
+    assetBundlePatterns: ['**/*'],
+    ios: {
+      supportsTablet: true,
+      bundleIdentifier: 'com.emsapp.app',
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false,
+      },
+    },
+    android: {
+      adaptiveIcon: {
+        foregroundImage: './assets/adaptive-icon.png',
+        backgroundColor: '#ffffff',
+      },
+      package: 'com.emsapp.app',
+    },
+    web: {
+      favicon: './assets/favicon.png',
+      bundler: 'metro',
+    },
+    plugins: [
+      'expo-router',
+      './plugins/withKotlinVersion',
+    ],
+    experiments: {
+      typedRoutes: true,
+    },
+    extra: {
+      router: {
+        origin: false,
+      },
+      eas: {
+        projectId: '9120aaf5-c857-4cf4-80d5-418c948b48bb',
+      },
+    },
+  },
+};
